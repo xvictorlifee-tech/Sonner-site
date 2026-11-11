@@ -33,7 +33,7 @@ export const pillars = [
   },
   {
     title: 'Parceira de crescimento',
-    text: 'Trabalhamos lado a lado com quem empreende, com transparência e foco no que faz sentido para o seu momento.',
+    text: 'Trabalhamos lado a lado com a sua equipe, com transparência e foco no que faz sentido para o seu momento.',
   },
 ];
 
@@ -41,7 +41,7 @@ export const pillars = [
 export const faq = [
   {
     q: 'Para que tipo de negócio a Sonner trabalha?',
-    a: 'Nosso foco são pequenos negócios que querem crescer e profissionalizar a sua comunicação. Se esse é o seu momento, vamos conversar.',
+    a: 'Atendemos marcas de diferentes tamanhos e segmentos, de quem está estruturando a comunicação agora a empresas que querem elevar o que já fazem. O que nos une é a vontade de crescer com uma comunicação à altura. Se esse é o seu momento, vamos conversar.',
   },
   {
     q: 'Preciso contratar todos os serviços?',
