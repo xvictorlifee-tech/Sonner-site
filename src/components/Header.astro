@@ -3,8 +3,9 @@ import Logo from './Logo.astro';
 import Icon from './Icon.astro';
 import Button from './Button.astro';
 import { nav, whatsappLink, contact } from '../data/site';
+import { cleanPath } from '../data/url';
 
-const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+const current = cleanPath(Astro.url.pathname);
 ---
 
 <header class="site-header sticky top-0 z-40 bg-amarelo text-preto transition-shadow duration-300" data-header>
