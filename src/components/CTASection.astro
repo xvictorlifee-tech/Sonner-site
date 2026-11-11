@@ -1,0 +1,29 @@
+---
+import Button from './Button.astro';
+import Wave from './Wave.astro';
+import { whatsappLink } from '../data/site';
+
+interface Props {
+  title?: string;
+  text?: string;
+  message?: string;
+}
+const {
+  title = 'Vamos conversar sobre a sua marca?',
+  text = 'Conte pra gente onde o seu negócio está e onde ele quer chegar. A gente ajuda a traçar o caminho.',
+  message,
+} = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-amarelo text-preto" aria-labelledby="cta-title">
+  <Wave class="absolute -right-[18%] -bottom-[10%] w-[95%] opacity-90 sm:-right-[8%] sm:w-[62%] lg:-bottom-[22%] lg:w-[48%]" />
+  <div class="container-site relative py-24 sm:py-32 lg:py-40">
+    <div class="max-w-4xl">
+      <h2 id="cta-title" class="display text-[2.6rem] sm:text-6xl lg:text-[5.5rem]" data-reveal>{title}</h2>
+      <p class="mt-8 max-w-xl text-lg sm:text-xl" data-reveal style="--reveal-delay:1">{text}</p>
+      <div class="mt-12 pb-40 sm:pb-24 lg:pb-0" data-reveal style="--reveal-delay:2">
+        <Button href={whatsappLink(message)} icon="whatsapp" size="lg" external>Vamos fazer sua marca crescer</Button>
+      </div>
+    </div>
+  </div>
+</section>

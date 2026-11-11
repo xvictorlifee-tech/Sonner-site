@@ -1,0 +1,69 @@
+---
+import Logo from './Logo.astro';
+import { nav, contact, social, site, whatsappLink } from '../data/site';
+const year = new Date().getFullYear();
+---
+
+<footer class="bg-preto text-branco">
+  <div class="container-site grid gap-14 py-16 sm:py-20 lg:grid-cols-12 lg:gap-8">
+    <div class="lg:col-span-5">
+      <a href="/" aria-label="Sonner — página inicial" class="inline-block text-amarelo">
+        <Logo variant="principal" class="w-[300px]" />
+      </a>
+      <p class="mt-8 max-w-sm text-branco/75">{site.tagline} Estratégia, criatividade e tecnologia para negócios que querem crescer.</p>
+    </div>
+
+    <nav aria-label="Rodapé" class="lg:col-span-2 lg:col-start-7">
+      <p class="eyebrow text-amarelo">Navegação</p>
+      <ul class="mt-5 space-y-3">
+        <li><a href="/" class="footer-link">Início</a></li>
+        {nav.map((item) => <li><a href={item.href} class="footer-link">{item.label}</a></li>)}
+      </ul>
+    </nav>
+
+    <div class="lg:col-span-4">
+      <p class="eyebrow text-amarelo">Contato</p>
+      <ul class="mt-5 space-y-3">
+        <li>
+          <a href={whatsappLink()} class="footer-link" target="_blank" rel="noopener noreferrer">
+            WhatsApp {contact.whatsappDisplay}<span class="sr-only"> (abre em nova aba)</span>
+          </a>
+        </li>
+        <li><a href={`mailto:${contact.email}`} class="footer-link break-all">{contact.email}</a></li>
+        {contact.location && <li class="text-branco/75">{contact.location}</li>}
+      </ul>
+      {
+        social.length > 0 && (
+          <ul class="mt-8 flex flex-wrap gap-x-6 gap-y-2">
+            {social.map((s) => (
+              <li>
+                <a href={s.url} class="footer-link" target="_blank" rel="noopener noreferrer">
+                  {s.label}
+                  <span class="sr-only"> (abre em nova aba)</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+        )
+      }
+    </div>
+  </div>
+
+  <div class="border-t border-branco/15">
+    <div class="container-site flex flex-col gap-2 py-6 text-xs text-branco/60 sm:flex-row sm:justify-between">
+      <p>© {year} {site.fullName}. Todos os direitos reservados.</p>
+      <p>agenciasonner.com.br</p>
+    </div>
+  </div>
+</footer>
+
+<style>
+  .footer-link {
+    background: linear-gradient(currentColor, currentColor) no-repeat 0 100% / 0 1px;
+    transition: background-size 0.4s var(--ease-out-soft), color 0.3s;
+  }
+  .footer-link:hover {
+    color: var(--color-amarelo);
+    background-size: 100% 1px;
+  }
+</style>

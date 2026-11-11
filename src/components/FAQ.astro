@@ -1,0 +1,32 @@
+---
+import Icon from './Icon.astro';
+import { faq } from '../data/home';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faq.map((item) => ({
+    '@type': 'Question',
+    name: item.q,
+    acceptedAnswer: { '@type': 'Answer', text: item.a },
+  })),
+};
+---
+
+<div class="border-b border-preto/15">
+  {
+    faq.map((item) => (
+      <details class="faq group border-t border-preto/15" data-reveal>
+        <summary class="flex cursor-pointer list-none items-center justify-between gap-6 py-6 text-lg font-medium sm:text-xl [&::-webkit-details-marker]:hidden">
+          {item.q}
+          <span class="inline-flex size-10 shrink-0 items-center justify-center rounded-full bg-amarelo transition-transform duration-300 group-open:rotate-45">
+            <Icon name="plus" class="size-5" />
+          </span>
+        </summary>
+        <p class="max-w-2xl pb-8 text-preto/80">{item.a}</p>
+      </details>
+    ))
+  }
+</div>
+
+<script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />

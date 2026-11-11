@@ -1,0 +1,19 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Wave from '../components/Wave.astro';
+---
+
+<BaseLayout title="Página não encontrada" noindex>
+  <section class="relative overflow-hidden bg-amarelo text-preto">
+    <div class="container-site relative z-10 py-24 sm:py-32 lg:py-40">
+      <p class="eyebrow">Erro 404</p>
+      <h1 class="display mt-8 max-w-[14ch] text-[2.8rem] sm:text-7xl lg:text-[6rem]">Essa página foi além demais.</h1>
+      <p class="mt-8 max-w-md text-lg">O endereço que você procura não existe ou mudou de lugar. Que tal voltar para o início?</p>
+      <div class="mt-12 pb-40 sm:pb-24 lg:pb-0">
+        <Button href="/">Voltar para o início</Button>
+      </div>
+    </div>
+    <Wave class="absolute -right-[18%] -bottom-[8%] w-[90%] sm:w-[60%] lg:-right-[6%] lg:w-[40%]" />
+  </section>
+</BaseLayout>
