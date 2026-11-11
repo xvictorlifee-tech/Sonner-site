@@ -65,3 +65,30 @@ export const faq = [
     a: 'Não prometemos resultados garantidos, porque eles dependem de muitos fatores. O que garantimos é trabalho feito com estratégia, método e acompanhamento próximo, para que cada decisão seja tomada com clareza.',
   },
 ];
+
+/** Princípios da página Sobre. */
+export const principles = [
+  {
+    title: 'Entender antes de criar',
+    text: 'Toda solução começa por ouvir: o negócio, o público e o momento da marca.',
+  },
+  {
+    title: 'Criatividade com propósito',
+    text: 'Ideias bonitas são boas. Ideias bonitas que resolvem um problema real são melhores.',
+  },
+  {
+    title: 'Transparência sempre',
+    text: 'Você sabe o que está sendo feito, por que está sendo feito e qual é o próximo passo.',
+  },
+  {
+    title: 'Consistência gera confiança',
+    text: 'Uma marca que se apresenta do mesmo jeito em todo lugar é mais fácil de lembrar e de escolher.',
+  },
+];
+
+/** [VALIDAR] O que acontece depois do primeiro contato (página Contato). */
+export const nextSteps = [
+  { title: 'Você chama no WhatsApp', text: 'Conte um pouco sobre o seu negócio e o que você quer alcançar.' },
+  { title: 'A gente conversa', text: 'Marcamos uma conversa para entender o seu momento, seus objetivos e suas prioridades.' },
+  { title: 'Você recebe uma proposta', text: 'Apresentamos um caminho sob medida, com escopo e prazos claros.' },
+];

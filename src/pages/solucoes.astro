@@ -1,0 +1,130 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import CTASection from '../components/CTASection.astro';
+import { services } from '../data/services';
+import { whatsappLink } from '../data/site';
+---
+
+<BaseLayout
+  title="Soluções"
+  description="Social media, design, identidade visual, sites, tráfego pago, audiovisual e estratégia de marketing para pequenos negócios que querem crescer."
+>
+  <PageHero
+    eyebrow="Soluções"
+    title="Da estratégia à execução, tudo em um só lugar."
+    intro="Sete frentes que se combinam conforme o momento do seu negócio. Você contrata o que faz sentido agora, e tudo conversa entre si."
+  />
+
+  <section class="bg-branco text-preto" aria-label="Lista de soluções">
+    <div class="container-site grid gap-12 py-20 sm:py-28 lg:grid-cols-12 lg:gap-8 lg:py-36">
+      <nav aria-label="Índice de soluções" class="hidden lg:col-span-3 lg:block">
+        <div class="sticky top-32">
+          <p class="eyebrow">Índice</p>
+          <ol class="mt-6 space-y-3 text-sm font-medium">
+            {
+              services.map((s, i) => (
+                <li>
+                  <a href={`#${s.slug}`} class="toc-link flex gap-3 py-1 text-preto/60 transition-colors hover:text-preto">
+                    <span class="tabular-nums">{String(i + 1).padStart(2, '0')}</span>
+                    {s.title}
+                  </a>
+                </li>
+              ))
+            }
+          </ol>
+        </div>
+      </nav>
+
+      <div class="lg:col-span-9">
+        {
+          services.map((s, i) => (
+            <article id={s.slug} class="service border-t border-preto/15 py-14 first:border-t-0 first:pt-0 lg:py-20" aria-labelledby={`${s.slug}-title`}>
+              <div class="grid gap-8 md:grid-cols-9 md:gap-8">
+                <div class="md:col-span-5" data-reveal>
+                  <p class="text-sm font-medium tabular-nums">{String(i + 1).padStart(2, '0')}</p>
+                  <h2 id={`${s.slug}-title`} class="title mt-4 text-[2.1rem] sm:text-5xl">
+                    {s.title}
+                  </h2>
+                  <p class="mt-6 max-w-lg text-lg text-preto/80">{s.description}</p>
+                </div>
+                <div class="space-y-8 md:col-span-4" data-reveal style="--reveal-delay:1">
+                  <div>
+                    <h3 class="eyebrow">O que você ganha</h3>
+                    <ul class="mt-4 space-y-3">
+                      {s.benefits.map((b) => (
+                        <li class="flex gap-3">
+                          <span class="mt-2.5 size-2 shrink-0 rounded-full bg-amarelo ring-2 ring-preto" aria-hidden="true" />
+                          {b}
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                  <div>
+                    <h3 class="eyebrow">O que pode estar incluído</h3>
+                    <ul class="mt-4 flex flex-wrap gap-2">
+                      {s.includes.map((item) => (
+                        <li class="rounded-full border border-preto/20 px-3.5 py-1.5 text-sm">{item}</li>
+                      ))}
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="mt-10" data-reveal>
+                <Button href={whatsappLink(`Olá, Sonner! Vim pelo site e quero saber mais sobre ${s.title}.`)} icon="whatsapp" external>
+                  Quero saber mais
+                  <span class="sr-only"> sobre {s.title}</span>
+                </Button>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </section>
+
+  <section class="bg-preto text-branco" aria-labelledby="combinar-title">
+    <div class="container-site grid gap-10 py-20 sm:py-28 lg:grid-cols-12 lg:items-end lg:gap-8">
+      <h2 id="combinar-title" class="display text-[2.4rem] sm:text-6xl lg:col-span-7 lg:text-[4.5rem]" data-reveal>
+        Não sabe por onde <span class="text-amarelo">começar?</span>
+      </h2>
+      <div class="lg:col-span-4 lg:col-start-9" data-reveal>
+        <p class="text-lg text-branco/80">
+          Tudo bem. Na primeira conversa, entendemos o momento do seu negócio e indicamos a combinação de soluções que faz sentido para
+          ele.
+        </p>
+        <div class="mt-8">
+          <Button href={whatsappLink('Olá, Sonner! Vim pelo site e quero ajuda para entender por onde começar.')} variant="light" icon="whatsapp" external>
+            Quero uma orientação
+          </Button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<script>
+  const links = document.querySelectorAll<HTMLAnchorElement>('.toc-link');
+  const sections = document.querySelectorAll<HTMLElement>('article.service');
+  if (links.length && 'IntersectionObserver' in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          links.forEach((l) => {
+            const active = l.hash === `#${entry.target.id}`;
+            l.classList.toggle('text-preto', active);
+            l.classList.toggle('text-preto/60', !active);
+            if (active) l.setAttribute('aria-current', 'true');
+            else l.removeAttribute('aria-current');
+          });
+        });
+      },
+      { rootMargin: '-40% 0px -55% 0px' },
+    );
+    sections.forEach((s) => io.observe(s));
+  }
+</script>

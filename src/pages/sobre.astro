@@ -1,0 +1,91 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Pillars from '../components/Pillars.astro';
+import CTASection from '../components/CTASection.astro';
+import { principles } from '../data/home';
+---
+
+<BaseLayout
+  title="Sobre"
+  description="Conheça a filosofia, o posicionamento e a forma de trabalhar da Sonner, agência criativa para pequenos negócios que querem crescer."
+>
+  <PageHero
+    eyebrow="Sobre a Sonner"
+    title="Do pensamento à entrega."
+    intro="A Sonner é uma agência criativa que trabalha da estratégia à execução, ao lado de pequenos negócios que querem crescer e profissionalizar a sua comunicação."
+  />
+
+  <!-- Filosofia -->
+  <section class="bg-preto text-branco" aria-labelledby="filosofia-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="01" label="Filosofia" class="text-amarelo" />
+      <h2 id="filosofia-title" class="title mt-12 max-w-5xl text-3xl sm:text-5xl lg:mt-16 lg:text-[3.75rem]" data-reveal>
+        Crescer é consequência de uma comunicação <span class="text-amarelo">clara, consistente e verdadeira.</span>
+      </h2>
+      <ul class="mt-16 grid gap-px bg-branco/15 sm:grid-cols-2 lg:mt-24">
+        {
+          principles.map((p, i) => (
+            <li class="bg-preto py-10 sm:p-10 sm:odd:pl-0 lg:py-12" data-reveal style={`--reveal-delay:${i % 2}`}>
+              <p class="text-sm font-medium tabular-nums text-amarelo">{String(i + 1).padStart(2, '0')}</p>
+              <h3 class="title mt-5 text-2xl sm:text-3xl">{p.title}</h3>
+              <p class="mt-4 max-w-md text-branco/75">{p.text}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <!-- Para quem -->
+  <section class="bg-branco text-preto" aria-labelledby="para-quem-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="02" label="Para quem" />
+      <div class="mt-12 grid gap-10 lg:mt-16 lg:grid-cols-12 lg:gap-8">
+        <h2 id="para-quem-title" class="display text-[2.6rem] sm:text-6xl lg:col-span-7 lg:text-[4.5rem]" data-reveal>
+          Feita para pequenos negócios com vontade de crescer.
+        </h2>
+        <div class="space-y-6 text-lg text-preto/80 lg:col-span-4 lg:col-start-9" data-reveal style="--reveal-delay:1">
+          <p>
+            Quem empreende costuma fazer de tudo um pouco, e a comunicação acaba ficando para depois. A Sonner existe para assumir essa
+            frente com método e cuidado.
+          </p>
+          <p>
+            Trabalhamos com negócios que já entenderam que a forma como se apresentam faz diferença, e querem uma marca à altura do que
+            entregam.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Como trabalhamos -->
+  <section class="bg-amarelo text-preto" aria-labelledby="como-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="03" label="Como trabalhamos" />
+      <h2 id="como-title" class="display mt-12 max-w-4xl text-[2.6rem] sm:text-6xl lg:mt-16 lg:text-[4.5rem]" data-reveal>
+        Método para pensar. Cuidado para entregar.
+      </h2>
+      <div class="mt-16 lg:mt-24">
+        <ProcessSteps />
+      </div>
+    </div>
+  </section>
+
+  <!-- Posicionamento -->
+  <section class="bg-verde text-branco" aria-labelledby="posicionamento-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="04" label="Posicionamento" class="text-amarelo" />
+      <h2 id="posicionamento-title" class="display mt-12 max-w-5xl text-[2.6rem] sm:text-6xl lg:mt-16 lg:text-[4.5rem]" data-reveal>
+        Três papéis, um só parceiro.
+      </h2>
+      <div class="mt-16 lg:mt-24">
+        <Pillars />
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
