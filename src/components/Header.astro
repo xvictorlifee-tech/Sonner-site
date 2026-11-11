@@ -8,8 +8,8 @@ import { cleanPath } from '../data/url';
 const current = cleanPath(Astro.url.pathname);
 ---
 
-<header class="site-header sticky top-0 z-40 bg-amarelo text-preto transition-shadow duration-300" data-header>
-  <div class="container-site flex h-18 items-center justify-between gap-6 sm:h-20">
+<header class="site-header fixed inset-x-0 top-0 z-40 px-3 pt-3 text-preto sm:px-6 sm:pt-4" data-header>
+  <div class="glass-bar mx-auto flex h-16 max-w-[84rem] items-center justify-between gap-6 rounded-full pr-2 pl-6 sm:h-[4.5rem] sm:pr-2.5 sm:pl-8">
     <a href="/" class="-m-2 p-2" aria-label="Sonner — página inicial">
       <Logo variant="reduzida" class="w-[112px] sm:w-[128px]" label="Sonner" />
     </a>
@@ -33,12 +33,12 @@ const current = cleanPath(Astro.url.pathname);
     </nav>
 
     <div class="flex items-center gap-3">
-      <div class="hidden md:block">
+      <div class="header-cta hidden md:block">
         <Button href={whatsappLink()} icon="whatsapp" external>Fale com a gente</Button>
       </div>
       <button
         type="button"
-        class="-mr-2 inline-flex size-12 items-center justify-center rounded-full md:hidden"
+        class="menu-btn inline-flex size-12 items-center justify-center rounded-full md:hidden"
         aria-label="Abrir menu"
         aria-haspopup="dialog"
         data-menu-open
@@ -86,7 +86,42 @@ const current = cleanPath(Astro.url.pathname);
 
 <style>
   .h-18 { height: 4.5rem; }
-  .site-header.is-scrolled { box-shadow: 0 1px 0 0 rgb(28 25 4 / 0.15); }
+
+  /* Barra de vidro: só tons da paleta (branco e preto) com transparência. */
+  .glass-bar {
+    position: relative;
+    background: linear-gradient(180deg, rgb(255 255 255 / 0.55), rgb(255 255 255 / 0.3));
+    -webkit-backdrop-filter: blur(28px) saturate(170%);
+    backdrop-filter: blur(28px) saturate(170%);
+    border: 1px solid rgb(255 255 255 / 0.6);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.75),
+      inset 0 -1px 0 rgb(28 25 4 / 0.06),
+      0 12px 32px -14px rgb(28 25 4 / 0.35);
+    transition: background 0.4s, border-color 0.4s, box-shadow 0.4s, color 0.4s;
+  }
+  .menu-btn { background: rgb(28 25 4 / 0.08); }
+
+  /* Sobre seções escuras (preto e verde noite), o vidro escurece e o texto vira claro. */
+  .site-header.is-dark { color: var(--color-branco); }
+  .site-header.is-dark .glass-bar {
+    background: linear-gradient(180deg, rgb(28 25 4 / 0.55), rgb(28 25 4 / 0.35));
+    border-color: rgb(255 255 255 / 0.14);
+    box-shadow:
+      inset 0 1px 0 rgb(255 255 255 / 0.12),
+      0 12px 32px -14px rgb(0 0 0 / 0.6);
+  }
+  .site-header.is-dark .glass-bar > a:first-child { color: var(--color-amarelo); }
+  .site-header.is-dark .menu-btn { background: rgb(255 255 255 / 0.1); }
+  .site-header.is-dark .header-cta :global(a) {
+    background: var(--color-amarelo);
+    color: var(--color-preto);
+  }
+
+  @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+    .glass-bar { background: rgb(255 255 255 / 0.92); }
+    .site-header.is-dark .glass-bar { background: rgb(28 25 4 / 0.92); }
+  }
   .nav-link::after {
     content: '';
     position: absolute;
@@ -123,7 +158,26 @@ const current = cleanPath(Astro.url.pathname);
   menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.close()));
   window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => e.matches && menu?.close());
 
-  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
-  onScroll();
+  // Detecta se a barra está sobre uma seção escura para trocar o tom do vidro.
+  const darkBg = ['bg-preto', 'bg-verde'];
+  let ticking = false;
+  const update = () => {
+    ticking = false;
+    if (!header) return;
+    const y = header.getBoundingClientRect().bottom - 20;
+    const el = document
+      .elementsFromPoint(window.innerWidth / 2, y)
+      .find((node) => !header.contains(node) && node.closest('section, footer'));
+    const block = el?.closest('section, footer');
+    header.classList.toggle('is-dark', !!block && darkBg.some((c) => block.classList.contains(c)));
+  };
+  const onScroll = () => {
+    if (!ticking) {
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+  };
+  update();
   window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('resize', onScroll);
 </script>
