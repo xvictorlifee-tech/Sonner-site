@@ -1,0 +1,90 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import PageHero from '../components/PageHero.astro';
+import Button from '../components/Button.astro';
+import Icon from '../components/Icon.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { contact, social, whatsappLink } from '../data/site';
+import { nextSteps } from '../data/home';
+---
+
+<BaseLayout
+  title="Contato"
+  description="Fale com a Sonner pelo WhatsApp ou por e-mail e descubra como fazer sua marca crescer."
+>
+  <PageHero
+    eyebrow="Contato"
+    title="Vamos fazer sua marca crescer."
+    intro="Conte pra gente sobre o seu negócio. A primeira conversa serve para entender o seu momento e os seus objetivos."
+  >
+    <div class="mt-10">
+      <Button href={whatsappLink()} icon="whatsapp" size="lg" external>Chamar no WhatsApp</Button>
+    </div>
+  </PageHero>
+
+  <section class="bg-branco text-preto" aria-labelledby="canais-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="01" label="Canais" />
+      <h2 id="canais-title" class="sr-only">Canais de contato</h2>
+      <ul class="mt-12 grid gap-px bg-preto/15 lg:mt-16 lg:grid-cols-2">
+        <li class="bg-branco py-10 lg:pr-12" data-reveal>
+          <div class="flex items-center gap-3 text-sm font-medium"><Icon name="whatsapp" class="size-5" /> WhatsApp</div>
+          <p class="title mt-6 text-3xl sm:text-5xl">{contact.whatsappDisplay}</p>
+          <p class="mt-4 max-w-sm text-preto/75">O jeito mais rápido de falar com a gente. A mensagem já vai pronta, é só enviar.</p>
+          <div class="mt-8">
+            <Button href={whatsappLink()} icon="whatsapp" external>Abrir conversa</Button>
+          </div>
+        </li>
+        <li class="bg-branco py-10 lg:pl-12" data-reveal style="--reveal-delay:1">
+          <div class="flex items-center gap-3 text-sm font-medium"><Icon name="mail" class="size-5" /> E-mail</div>
+          <p class="title mt-6 text-2xl break-all sm:text-4xl">{contact.email}</p>
+          <p class="mt-4 max-w-sm text-preto/75">Prefere escrever com mais calma? Mande sua mensagem por e-mail.</p>
+          <div class="mt-8">
+            <Button href={`mailto:${contact.email}?subject=${encodeURIComponent('Contato pelo site')}`} variant="outline-dark" icon="mail">
+              Enviar e-mail
+            </Button>
+          </div>
+        </li>
+      </ul>
+      {
+        (social.length > 0 || contact.location) && (
+          <div class="mt-12 flex flex-wrap items-center gap-x-10 gap-y-4 border-t border-preto/15 pt-8" data-reveal>
+            {contact.location && <p class="text-preto/75">{contact.location}</p>}
+            {social.length > 0 && (
+              <ul class="flex flex-wrap gap-x-6 gap-y-2 font-medium">
+                {social.map((s) => (
+                  <li>
+                    <a href={s.url} class="underline decoration-2 underline-offset-4 hover:decoration-amarelo" target="_blank" rel="noopener noreferrer">
+                      {s.label}
+                      <span class="sr-only"> (abre em nova aba)</span>
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            )}
+          </div>
+        )
+      }
+    </div>
+  </section>
+
+  <section class="bg-verde text-branco" aria-labelledby="depois-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="02" label="Próximos passos" class="text-amarelo" />
+      <h2 id="depois-title" class="display mt-12 max-w-4xl text-[2.6rem] sm:text-6xl lg:mt-16 lg:text-[4.5rem]" data-reveal>
+        O que acontece depois que você chama.
+      </h2>
+      <ol class="mt-16 grid gap-12 lg:mt-24 lg:grid-cols-3 lg:gap-8">
+        {
+          nextSteps.map((step, i) => (
+            <li class="border-t-[3px] border-amarelo pt-8" data-reveal style={`--reveal-delay:${i}`}>
+              <p class="display text-6xl text-amarelo" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+              <h3 class="title mt-6 text-2xl">{step.title}</h3>
+              <p class="mt-3 max-w-xs text-branco/75">{step.text}</p>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+</BaseLayout>

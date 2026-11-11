@@ -1,0 +1,36 @@
+---
+import Wave from './Wave.astro';
+
+interface Props {
+  eyebrow: string;
+  title: string;
+  intro?: string;
+  wave?: boolean;
+}
+const { eyebrow, title, intro, wave = true } = Astro.props;
+---
+
+<section class="relative overflow-hidden bg-amarelo text-preto" aria-labelledby="page-title">
+  <div class="container-site relative z-10 pt-8 pb-20 sm:pt-12 sm:pb-28 lg:pt-14 lg:pb-36">
+    <div class="flex items-center justify-between gap-4 border-b border-preto/20 pb-5">
+      <p class="eyebrow">{eyebrow}</p>
+      <p class="eyebrow hidden sm:block">Sonner — Agência criativa</p>
+    </div>
+    <h1 id="page-title" class="page-title display mt-10 max-w-[16ch] text-[2.8rem] sm:mt-14 sm:text-7xl lg:text-[6.5rem]">{title}</h1>
+    <div class:list={['page-intro mt-10 lg:w-[55%]', wave && 'pb-36 sm:pb-24 lg:pb-0']}>
+      {intro && <p class="max-w-xl text-lg sm:text-xl">{intro}</p>}
+      <slot />
+    </div>
+  </div>
+  {wave && <Wave class="absolute -right-[16%] -bottom-[6%] w-[80%] sm:-right-[6%] sm:w-[52%] lg:-bottom-[14%] lg:w-[36%]" />}
+</section>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    .page-title { animation: fade-up 1s var(--ease-out-soft) both 0.1s; }
+    .page-intro { animation: fade-up 1s var(--ease-out-soft) both 0.35s; }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(1.25rem); }
+  }
+</style>
