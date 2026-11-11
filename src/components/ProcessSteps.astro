@@ -1,0 +1,32 @@
+---
+import { process } from '../data/home';
+---
+
+<ol class="grid gap-x-8 gap-y-12 sm:grid-cols-2 lg:grid-cols-4">
+  {
+    process.map((step, i) => (
+      <li class="step relative pt-8" data-reveal style={`--reveal-delay:${i}`}>
+        <span class="step-line absolute top-0 left-0 h-[3px] w-full bg-preto" aria-hidden="true" />
+        <p class="display text-6xl lg:text-7xl" aria-hidden="true">{String(i + 1).padStart(2, '0')}</p>
+        <h3 class="title mt-6 text-2xl">
+          <span class="sr-only">Etapa {i + 1}: </span>
+          {step.title}
+        </h3>
+        <p class="mt-3 max-w-xs text-preto/80">{step.text}</p>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  @media (prefers-reduced-motion: no-preference) {
+    :global(.js) .step .step-line {
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 1.2s var(--ease-out-soft) 0.2s;
+    }
+    :global(.js) .step:global(.is-visible) .step-line {
+      transform: scaleX(1);
+    }
+  }
+</style>

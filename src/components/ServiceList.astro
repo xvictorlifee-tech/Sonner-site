@@ -1,0 +1,40 @@
+---
+import Icon from './Icon.astro';
+import { services } from '../data/services';
+---
+
+<ol class="border-b border-preto/15">
+  {
+    services.map((s, i) => (
+      <li class="border-t border-preto/15" data-reveal style={`--reveal-delay:${i % 4}`}>
+        <a href={`/solucoes#${s.slug}`} class="service-row group relative grid grid-cols-[2.5rem_1fr_auto] items-start gap-x-4 gap-y-2 py-7 sm:grid-cols-[4rem_1fr_auto] lg:grid-cols-[5rem_minmax(0,5fr)_minmax(0,6fr)_auto] lg:items-center lg:gap-x-8 lg:py-9">
+          <span class="relative pt-1 text-sm font-medium tabular-nums lg:pt-0">{String(i + 1).padStart(2, '0')}</span>
+          <h3 class="title relative text-2xl sm:text-3xl lg:text-[2.6rem]">{s.title}</h3>
+          <p class="relative col-start-2 max-w-md text-preto/75 lg:col-start-3 lg:row-start-1">{s.summary}</p>
+          <span class="relative col-start-3 row-start-1 inline-flex size-11 items-center justify-center rounded-full border-2 border-preto transition-colors duration-300 group-hover:bg-preto group-hover:text-amarelo lg:col-start-4 lg:size-14">
+            <Icon name="arrow" class="size-5 -rotate-45 transition-transform duration-300 group-hover:rotate-0" />
+          </span>
+        </a>
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .service-row::before {
+    content: '';
+    position: absolute;
+    inset: 0 -1.25rem;
+    background: var(--color-amarelo);
+    transform: scaleY(0);
+    transform-origin: bottom;
+    transition: transform 0.5s var(--ease-out-soft);
+  }
+  .service-row:hover::before,
+  .service-row:focus-visible::before {
+    transform: scaleY(1);
+  }
+  @media (min-width: 640px) {
+    .service-row::before { inset: 0 -2rem; }
+  }
+</style>

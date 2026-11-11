@@ -1,0 +1,43 @@
+---
+import Icon from './Icon.astro';
+
+interface Props {
+  href: string;
+  variant?: 'dark' | 'light' | 'outline-dark' | 'outline-light';
+  icon?: 'arrow' | 'whatsapp' | 'mail' | 'arrow-down';
+  size?: 'md' | 'lg';
+  external?: boolean;
+  class?: string;
+}
+
+const { href, variant = 'dark', icon = 'arrow', size = 'md', external = false, class: className = '' } = Astro.props;
+
+const variants = {
+  dark: 'bg-preto text-amarelo hover:bg-verde',
+  light: 'bg-amarelo text-preto hover:bg-branco',
+  'outline-dark': 'border-2 border-preto text-preto hover:bg-preto hover:text-amarelo',
+  'outline-light': 'border-2 border-branco/80 text-branco hover:bg-branco hover:text-preto',
+};
+const sizes = {
+  md: 'h-12 px-6 text-sm',
+  lg: 'h-14 px-7 text-base sm:h-16 sm:px-8 sm:text-lg',
+};
+---
+
+<a
+  href={href}
+  class:list={[
+    'group inline-flex items-center justify-center gap-3 rounded-full font-semibold whitespace-nowrap transition-colors duration-300',
+    variants[variant],
+    sizes[size],
+    className,
+  ]}
+  {...external ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  {icon === 'whatsapp' && <Icon name="whatsapp" class="size-5 shrink-0" />}
+  <span><slot /></span>
+  {icon !== 'whatsapp' && (
+    <Icon name={icon} class="size-5 shrink-0 transition-transform duration-300 ease-out-soft group-hover:translate-x-1" />
+  )}
+  {external && <span class="sr-only">(abre em nova aba)</span>}
+</a>

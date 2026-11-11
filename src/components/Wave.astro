@@ -1,0 +1,16 @@
+---
+/**
+ * A onda: elemento gráfico oficial. Sempre Ouro sobre Amarelo, como textura,
+ * nunca por cima de textos. É decorativa e fica escondida de leitores de tela.
+ */
+import onda from '../assets/brand/onda.svg?raw';
+
+interface Props {
+  class?: string;
+  drift?: boolean;
+}
+const { class: className = '', drift = true } = Astro.props;
+const svg = onda.replace('<svg ', '<svg aria-hidden="true" focusable="false" class="block h-auto w-full" ');
+---
+
+<span class:list={['pointer-events-none block text-ouro select-none', drift && 'wave-drift', className]} aria-hidden="true" set:html={svg} />

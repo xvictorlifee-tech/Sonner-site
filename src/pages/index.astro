@@ -1,0 +1,182 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import Button from '../components/Button.astro';
+import Wave from '../components/Wave.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import ServiceList from '../components/ServiceList.astro';
+import ProcessSteps from '../components/ProcessSteps.astro';
+import Pillars from '../components/Pillars.astro';
+import FAQ from '../components/FAQ.astro';
+import CTASection from '../components/CTASection.astro';
+import { site, whatsappLink } from '../data/site';
+import { services } from '../data/services';
+
+const headline = ['Sua', 'marca', 'tem', 'potencial', 'para', 'ir', 'além.'];
+---
+
+<BaseLayout title={site.fullName}>
+  <!-- Hero -->
+  <section class="relative overflow-hidden bg-amarelo text-preto" aria-labelledby="hero-title">
+    <div class="container-site pt-8 sm:pt-12 lg:pt-14">
+      <div class="flex items-center justify-between gap-4 border-b border-preto/20 pb-5">
+        <p class="eyebrow">Agência criativa</p>
+        <p class="eyebrow hidden sm:block">{site.tagline}</p>
+      </div>
+
+      <h1 id="hero-title" class="display mt-10 max-w-[13ch] text-[3.1rem] sm:mt-14 sm:text-[5.5rem] lg:text-[7rem] xl:text-[8.25rem]">
+        {
+          headline.map((word, i) => (
+            <span class="word">
+              <span style={`--i:${i}`}>{word}</span>
+            </span>
+          ))
+        }
+      </h1>
+
+      <div class="relative mt-10 sm:mt-14 lg:mt-12">
+        <div class="relative z-10 lg:w-[60%] lg:pb-16">
+          <p class="hero-fade max-w-md text-lg sm:text-xl">
+            A Sonner une estratégia, criatividade e tecnologia para transformar a presença digital de negócios que querem crescer.
+          </p>
+          <div class="hero-fade mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap" style="--d:1">
+            <Button href={whatsappLink()} icon="whatsapp" size="lg" external>Vamos fazer sua marca crescer</Button>
+            <Button href="/solucoes" variant="outline-dark" size="lg">Conheça as soluções</Button>
+          </div>
+        </div>
+        <div class="-mr-5 mt-12 sm:-mr-8 lg:absolute lg:right-0 lg:bottom-0 lg:mt-0 lg:mr-0 lg:w-[42%] lg:translate-x-12">
+          <Wave class="ml-auto w-[88%] translate-x-[12%] sm:w-[70%] lg:w-full lg:translate-x-[8%]" />
+        </div>
+      </div>
+    </div>
+
+    <div class="relative border-t border-preto/20 bg-amarelo">
+      <ul class="container-site flex flex-wrap gap-x-3 gap-y-1 py-5 text-sm font-medium sm:justify-between sm:gap-x-6" aria-label="O que fazemos">
+        {services.map((s) => <li class="flex items-center gap-3 sm:gap-6"><span class="size-1.5 rounded-full bg-preto" aria-hidden="true"></span>{s.short}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- Manifesto -->
+  <section class="bg-preto text-branco" aria-labelledby="manifesto-title">
+    <div class="container-site py-24 sm:py-32 lg:py-44">
+      <SectionHeading number="01" label="Manifesto" class="text-amarelo" />
+      <h2 id="manifesto-title" class="sr-only">Manifesto</h2>
+      <div class="mt-12 grid lg:mt-20 lg:grid-cols-12">
+        <div class="space-y-10 lg:col-span-10 lg:col-start-2">
+          <p class="title text-3xl sm:text-5xl lg:text-[3.75rem]" data-reveal>
+            Acreditamos que todo negócio merece uma comunicação <span class="text-amarelo">à altura do que ele pode ser.</span>
+          </p>
+          <p class="title text-3xl text-branco/60 sm:text-5xl lg:text-[3.75rem]" data-reveal>
+            Sem fórmulas prontas. Com estratégia clara, criatividade com propósito e execução cuidadosa,{' '}
+            <span class="text-branco">do pensamento à entrega.</span>
+          </p>
+        </div>
+      </div>
+      <div class="mt-16 grid lg:mt-24 lg:grid-cols-12">
+        <p class="max-w-md text-lg text-branco/75 lg:col-span-5 lg:col-start-8" data-reveal>
+          A Sonner existe para caminhar ao lado de quem empreende: entender o momento da marca, organizar a comunicação e
+          construir uma presença digital consistente, que transmita o valor real do seu negócio.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Soluções -->
+  <section class="bg-branco text-preto" aria-labelledby="solucoes-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="02" label="Soluções" />
+      <div class="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-12 lg:items-end">
+        <h2 id="solucoes-title" class="display text-[2.6rem] sm:text-6xl lg:col-span-8 lg:text-[5rem]" data-reveal>
+          Tudo o que sua marca precisa, em um só lugar.
+        </h2>
+        <p class="max-w-sm text-lg text-preto/75 lg:col-span-4 lg:justify-self-end" data-reveal>
+          Da estratégia à execução, montamos a combinação certa para o momento do seu negócio.
+        </p>
+      </div>
+      <div class="mt-14 lg:mt-20">
+        <ServiceList />
+      </div>
+      <div class="mt-12" data-reveal>
+        <Button href="/solucoes" variant="outline-dark">Ver todas as soluções</Button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Metodologia -->
+  <section class="bg-amarelo text-preto" aria-labelledby="metodo-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="03" label="Como trabalhamos" />
+      <div class="mt-12 grid gap-8 lg:mt-16 lg:grid-cols-12 lg:items-end">
+        <h2 id="metodo-title" class="display text-[2.6rem] sm:text-6xl lg:col-span-8 lg:text-[5rem]" data-reveal>
+          Um processo claro, do primeiro contato à entrega.
+        </h2>
+        <p class="max-w-sm text-lg lg:col-span-4 lg:justify-self-end" data-reveal>
+          Você sabe o que está sendo feito, por que está sendo feito e qual é o próximo passo.
+        </p>
+      </div>
+      <div class="mt-16 lg:mt-24">
+        <ProcessSteps />
+      </div>
+    </div>
+  </section>
+
+  <!-- Diferenciais -->
+  <section class="bg-verde text-branco" aria-labelledby="diferenciais-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="04" label="Por que a Sonner" class="text-amarelo" />
+      <h2 id="diferenciais-title" class="display mt-12 max-w-5xl text-[2.6rem] sm:text-6xl lg:mt-16 lg:text-[5rem]" data-reveal>
+        Uma agência completa, com alma de estúdio.
+      </h2>
+      <div class="mt-16 lg:mt-24">
+        <Pillars />
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="bg-branco text-preto" aria-labelledby="faq-title">
+    <div class="container-site py-24 sm:py-32 lg:py-40">
+      <SectionHeading number="05" label="Perguntas frequentes" />
+      <div class="mt-12 grid gap-12 lg:mt-16 lg:grid-cols-12">
+        <div class="lg:col-span-4">
+          <h2 id="faq-title" class="display text-[2.6rem] sm:text-6xl lg:sticky lg:top-32" data-reveal>Antes de começar.</h2>
+        </div>
+        <div class="lg:col-span-7 lg:col-start-6">
+          <FAQ />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CTASection />
+</BaseLayout>
+
+<style>
+  .word {
+    display: inline-block;
+    overflow: hidden;
+    vertical-align: top;
+    padding-bottom: 0.08em;
+    margin-bottom: -0.08em;
+    margin-right: 0.22em;
+  }
+  .word:last-child { margin-right: 0; }
+  .word > span { display: inline-block; }
+
+  @media (prefers-reduced-motion: no-preference) {
+    .word > span {
+      animation: word-up 1s var(--ease-out-soft) both;
+      animation-delay: calc(var(--i) * 70ms + 100ms);
+    }
+    .hero-fade {
+      animation: fade-up 1s var(--ease-out-soft) both;
+      animation-delay: calc(700ms + var(--d, 0) * 120ms);
+    }
+  }
+  @keyframes word-up {
+    from { transform: translateY(105%); }
+  }
+  @keyframes fade-up {
+    from { opacity: 0; transform: translateY(1rem); }
+  }
+</style>

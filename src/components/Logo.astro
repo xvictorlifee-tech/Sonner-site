@@ -1,0 +1,27 @@
+---
+/**
+ * Logotipo oficial da Sonner. Os SVGs vêm dos arquivos-mestre (src/assets/brand)
+ * e herdam a cor do texto (currentColor). Use apenas cores das aplicações aprovadas:
+ * preto sobre amarelo/branco, amarelo sobre preto, branco sobre verde noite.
+ *
+ * Larguras mínimas (manual): principal 300px, reduzida 100px, símbolo 24px.
+ */
+import principal from '../assets/brand/logo-principal.svg?raw';
+import reduzida from '../assets/brand/logo-reduzida.svg?raw';
+import simbolo from '../assets/brand/simbolo.svg?raw';
+
+interface Props {
+  variant?: 'principal' | 'reduzida' | 'simbolo';
+  class?: string;
+  label?: string;
+}
+
+const { variant = 'principal', class: className = '', label = 'Sonner — Agência Criativa' } = Astro.props;
+const source = { principal, reduzida, simbolo }[variant];
+const svg = source.replace(
+  '<svg ',
+  `<svg role="img" aria-label="${label}" class="block h-auto w-full" focusable="false" `,
+);
+---
+
+<span class:list={['inline-block', className]} set:html={svg} />

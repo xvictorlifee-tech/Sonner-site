@@ -1,0 +1,15 @@
+---
+import { pillars } from '../data/home';
+---
+
+<ul class="grid gap-px overflow-hidden bg-branco/15 lg:grid-cols-3">
+  {
+    pillars.map((p, i) => (
+      <li class="bg-verde py-10 lg:px-10 lg:py-12 lg:first:pl-0" data-reveal style={`--reveal-delay:${i}`}>
+        <p class="text-sm font-medium tabular-nums text-amarelo">{String(i + 1).padStart(2, '0')}</p>
+        <h3 class="title mt-5 text-3xl text-amarelo">{p.title}</h3>
+        <p class="mt-4 max-w-sm text-branco/80">{p.text}</p>
+      </li>
+    ))
+  }
+</ul>

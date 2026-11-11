@@ -1,0 +1,128 @@
+---
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
+import Button from './Button.astro';
+import { nav, whatsappLink, contact } from '../data/site';
+
+const current = Astro.url.pathname.replace(/\/$/, '') || '/';
+---
+
+<header class="site-header sticky top-0 z-40 bg-amarelo text-preto transition-shadow duration-300" data-header>
+  <div class="container-site flex h-18 items-center justify-between gap-6 sm:h-20">
+    <a href="/" class="-m-2 p-2" aria-label="Sonner — página inicial">
+      <Logo variant="reduzida" class="w-[112px] sm:w-[128px]" label="Sonner" />
+    </a>
+
+    <nav aria-label="Principal" class="hidden md:block">
+      <ul class="flex items-center gap-10 text-sm font-medium">
+        {
+          nav.map((item) => (
+            <li>
+              <a
+                href={item.href}
+                class="nav-link relative py-2"
+                aria-current={current === item.href ? 'page' : undefined}
+              >
+                {item.label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+
+    <div class="flex items-center gap-3">
+      <div class="hidden md:block">
+        <Button href={whatsappLink()} icon="whatsapp" external>Fale com a gente</Button>
+      </div>
+      <button
+        type="button"
+        class="-mr-2 inline-flex size-12 items-center justify-center rounded-full md:hidden"
+        aria-label="Abrir menu"
+        aria-haspopup="dialog"
+        data-menu-open
+      >
+        <Icon name="menu" class="size-7" />
+      </button>
+    </div>
+  </div>
+
+  <dialog
+    class="mobile-menu m-0 h-dvh max-h-none w-full max-w-none bg-preto p-0 text-branco backdrop:bg-transparent"
+    aria-label="Menu"
+    data-menu
+  >
+    <div class="container-site flex h-full flex-col">
+      <div class="flex h-18 items-center justify-between sm:h-20">
+        <a href="/" aria-label="Sonner — página inicial" class="text-amarelo">
+          <Logo variant="reduzida" class="w-[112px]" label="Sonner" />
+        </a>
+        <button type="button" class="-mr-2 inline-flex size-12 items-center justify-center text-amarelo" aria-label="Fechar menu" data-menu-close>
+          <Icon name="close" class="size-7" />
+        </button>
+      </div>
+      <nav aria-label="Menu móvel" class="mt-10 flex-1">
+        <ul class="space-y-2">
+          <li><a href="/" class="title block py-2 text-5xl" aria-current={current === '/' ? 'page' : undefined}>Início</a></li>
+          {
+            nav.map((item) => (
+              <li>
+                <a href={item.href} class="title block py-2 text-5xl" aria-current={current === item.href ? 'page' : undefined}>
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+      <div class="space-y-6 pb-10">
+        <Button href={whatsappLink()} variant="light" icon="whatsapp" size="lg" external class="w-full">Fale com a gente</Button>
+        <p class="text-sm text-branco/70">{contact.email}</p>
+      </div>
+    </div>
+  </dialog>
+</header>
+
+<style>
+  .h-18 { height: 4.5rem; }
+  .site-header.is-scrolled { box-shadow: 0 1px 0 0 rgb(28 25 4 / 0.15); }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 2px;
+    background: currentColor;
+    transform: scaleX(0);
+    transform-origin: right;
+    transition: transform 0.4s var(--ease-out-soft);
+  }
+  .nav-link:hover::after,
+  .nav-link[aria-current='page']::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+  .mobile-menu[open] { animation: menu-in 0.35s var(--ease-out-soft); }
+  .mobile-menu [aria-current='page'] { color: var(--color-amarelo); }
+  @keyframes menu-in {
+    from { opacity: 0; transform: translateY(-1rem); }
+  }
+</style>
+
+<script>
+  const header = document.querySelector<HTMLElement>('[data-header]');
+  const menu = document.querySelector<HTMLDialogElement>('[data-menu]');
+  const openBtn = document.querySelector<HTMLButtonElement>('[data-menu-open]');
+  const closeBtn = document.querySelector<HTMLButtonElement>('[data-menu-close]');
+
+  openBtn?.addEventListener('click', () => menu?.showModal());
+  closeBtn?.addEventListener('click', () => menu?.close());
+  menu?.addEventListener('close', () => openBtn?.focus());
+  menu?.querySelectorAll('a').forEach((a) => a.addEventListener('click', () => menu.close()));
+  window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => e.matches && menu?.close());
+
+  const onScroll = () => header?.classList.toggle('is-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+</script>
