@@ -1,9 +1,8 @@
 /**
  * Conteúdos da Home e de seções reutilizadas em outras páginas.
- * Itens com [VALIDAR] foram redigidos pela equipe do site e precisam de confirmação da Sonner.
  */
 
-/** [VALIDAR] Etapas da metodologia. */
+/** Etapas da metodologia. */
 export const process = [
   {
     title: 'Diagnóstico',
@@ -38,7 +37,7 @@ export const pillars = [
   },
 ];
 
-/** [VALIDAR] Respostas que dependem de regras comerciais. */
+/** Perguntas frequentes (Home). */
 export const faq = [
   {
     q: 'Para que tipo de negócio a Sonner trabalha?',
@@ -50,7 +49,11 @@ export const faq = [
   },
   {
     q: 'Como funciona o primeiro contato?',
-    a: 'Você nos chama no WhatsApp e conta um pouco sobre o seu negócio. A partir daí, marcamos uma conversa para entender seus objetivos e preparar uma proposta.',
+    a: 'Você nos chama no WhatsApp e conta um pouco sobre o seu negócio. A partir daí, marcamos uma reunião online para entender seus objetivos e preparar uma proposta.',
+  },
+  {
+    q: 'Vocês atendem fora de São Paulo?',
+    a: 'Sim. A Sonner fica em São Paulo e atende negócios de todo o Brasil de forma remota, com reuniões online em todas as etapas do processo.',
   },
   {
     q: 'Quanto custa?',
@@ -86,9 +89,9 @@ export const principles = [
   },
 ];
 
-/** [VALIDAR] O que acontece depois do primeiro contato (página Contato). */
+/** O que acontece depois do primeiro contato (página Contato). */
 export const nextSteps = [
   { title: 'Você chama no WhatsApp', text: 'Conte um pouco sobre o seu negócio e o que você quer alcançar.' },
-  { title: 'A gente conversa', text: 'Marcamos uma conversa para entender o seu momento, seus objetivos e suas prioridades.' },
+  { title: 'A gente conversa', text: 'Marcamos uma reunião online para entender o seu momento, seus objetivos e suas prioridades.' },
   { title: 'Você recebe uma proposta', text: 'Apresentamos um caminho sob medida, com escopo e prazos claros.' },
 ];

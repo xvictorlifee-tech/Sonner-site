@@ -25,7 +25,7 @@ npm run preview  # serve o build localmente
 | Cores e tipografia | `src/styles/global.css` |
 | Logotipos e onda (arquivos oficiais) | `src/assets/brand/` |
 
-Campos marcados com `[PREENCHER]` ainda não foram fornecidos e ficam escondidos enquanto estiverem vazios. Itens com `[VALIDAR]` foram redigidos e aguardam a confirmação da Sonner.
+Campos de contato vazios (ex.: uma rede social sem URL) ficam escondidos no site.
 
 ## Identidade visual
 
