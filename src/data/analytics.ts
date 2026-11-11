@@ -4,7 +4,7 @@
  */
 export const analytics = {
   /** ID da métrica do Google Analytics 4, no formato G-XXXXXXXXXX. */
-  gaId: '',
+  gaId: 'G-99LM0RBTGR',
   /** ID do Pixel da Meta (só números). */
   metaPixelId: '',
 };
