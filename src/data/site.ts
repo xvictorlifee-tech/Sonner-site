@@ -2,8 +2,7 @@
  * Dados institucionais e de contato da Sonner.
  * Tudo que aparece no site sobre contato vem daqui: edite só este arquivo.
  *
- * Campos marcados com [PREENCHER] ainda não foram fornecidos.
- * Enquanto estiverem vazios, eles não aparecem no site.
+ * Campos vazios não aparecem no site.
  */
 
 export const site = {
@@ -24,17 +23,15 @@ export const contact = {
   /** Mensagem padrão do botão de WhatsApp. */
   whatsappMessage: 'Olá, Sonner! Vim pelo site e quero fazer minha marca crescer.',
   email: 'agenciasonner@gmail.com',
-  /** [PREENCHER] Cidade ou região de atuação. Ex.: "São Paulo, SP · Atendimento em todo o Brasil" */
-  location: '',
+  /** Cidade e região de atuação. */
+  location: 'São Paulo, SP · Atendimento remoto em todo o Brasil',
 };
 
 /**
- * [PREENCHER] Redes sociais. Deixe a URL vazia para esconder a rede.
+ * Redes sociais. Para adicionar uma rede, inclua uma linha. Deixe a URL vazia para escondê-la.
  */
 export const social: { label: string; url: string }[] = [
-  { label: 'Instagram', url: '' },
-  { label: 'LinkedIn', url: '' },
-  { label: 'Behance', url: '' },
+  { label: 'Instagram', url: 'https://www.instagram.com/agenciasonner/' },
 ].filter((item) => item.url !== '');
 
 /** Monta o link do WhatsApp com mensagem pré-preenchida. */
